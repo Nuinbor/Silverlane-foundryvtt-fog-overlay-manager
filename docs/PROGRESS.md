@@ -10,6 +10,7 @@
 - API evidence: official v14.370 docs and the publicly served v14 demo confirm CanvasVisibility is a group, visibilityOverlay is a Sprite, sceneTextures.fogOverlay is preloaded locally, and drawCanvasVisibility fires after filter creation.
 - Task 1: complete — 14 Node tests pass, commit 23419a9.
 - Task 2: complete — 24 Node tests pass; local texture preloading/binding, native transform, serialized redraws, tile subclass and native form flags verified.
-- Tasks 3–4: pending.
+- Task 3: complete — 37 Node/DOM tests and 5 Chromium tests pass. Browser tests use actual PIXI 7.4.3 for movement, independent resizing, zoom coordinates, Escape and resource cleanup; no licensed Foundry session is claimed.
+- Task 4: in progress — packaging, documentation and independent review.
 - Ruling: opacity controls only the local GM alignment preview, not the player fog image — player opacity was not requested and native texture alpha avoids extra render targets.
 - Task 1 RED: missing model/geometry modules. Initial implementation caught one incomplete test Level fixture (missing native id); corrected fixture, not production behavior.

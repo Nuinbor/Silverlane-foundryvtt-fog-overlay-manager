@@ -1,0 +1,18 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Actual PIXI alignment boundary test</title>
+<style>body { margin:0; background:#24252b; color:white; } canvas { display:block; } #state { position:fixed;right:10px;bottom:10px; }</style></head>
+<body><output id="state"></output><script src="/node_modules/pixi.js/dist/pixi.min.js"></script>
+<script type="module">
+  import { CanvasAlignmentPreview } from "/scripts/preview.js";
+  window.game = { user: { isGM: true } };
+  const app = new PIXI.Application({ width:1000, height:800, backgroundColor:0x313843, antialias:true });
+  document.body.prepend(app.view);
+  const layer = new PIXI.Container(); app.stage.addChild(layer);
+  window.canvas = { ready:true, scene:{id:"s1"}, level:{id:"ground"}, stage:app.stage, interface:layer, app,
+    canvasCoordinatesFromClient({x,y}) { const r=app.view.getBoundingClientRect(); return app.stage.toLocal(new PIXI.Point((x-r.left)*app.screen.width/r.width,(y-r.top)*app.screen.height/r.height)); } };
+  window.preview = new CanvasAlignmentPreview({ canvas:window.canvas,
+    assignment:{src:"test.webp",x:100,y:100,width:200,height:160,rotation:0},
+    loadTexture:async()=>PIXI.Texture.WHITE,
+    onChange:a=>{document.querySelector("#state").textContent=JSON.stringify(a);} });
+  await preview.start(); window.testReady=true;
+</script></body></html>

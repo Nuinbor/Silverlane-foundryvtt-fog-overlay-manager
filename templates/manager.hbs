@@ -1,0 +1,32 @@
+<section class="sfo-manager-content">
+  <header class="sfo-toolbar">
+    <label>{{localize "SFO.scene"}} <select name="scene" aria-label="{{localize 'SFO.scene'}}">
+      {{#each scenes}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}
+    </select></label>
+    <span class="sfo-badge">Foundry v14 · Scene Levels</span>
+  </header>
+  <p class="hint">{{localize "SFO.managerHint"}}</p>
+  {{#if fogDisabled}}<p class="sfo-warning"><i class="fa-solid fa-triangle-exclamation"></i> {{localize "SFO.fogDisabled"}}</p>{{/if}}
+  {{#if sharedFog}}<p class="sfo-warning">{{localize "SFO.sharedFog"}}</p>{{/if}}
+  {{#if noLevels}}<p class="sfo-empty">{{localize "SFO.noLevels"}}</p>{{else}}
+  {{#if noPlayers}}<p class="sfo-empty">{{localize "SFO.noPlayers"}}</p>{{/if}}
+  <div class="sfo-table-scroll">
+    <table class="sfo-matrix">
+      <thead><tr><th scope="col">{{localize "SFO.player"}}</th>
+        {{#each levels}}<th scope="col" data-level-id="{{id}}">{{name}}<small>{{bottom}} — {{top}}</small></th>{{/each}}
+      </tr></thead>
+      <tbody>{{#each rows}}<tr data-user-id="{{id}}">
+        <th scope="row"><span class="sfo-dot {{#if active}}online{{/if}}"></span> {{name}}</th>
+        {{#each cells}}<td data-level-id="{{levelId}}" data-user-id="{{userId}}">
+          <div class="sfo-image-path"><input type="text" name="image" value="{{src}}" placeholder="{{localize 'SFO.imagePath'}}" aria-label="{{localize 'SFO.imagePath'}}" autocomplete="off">
+            <button type="button" data-action="browse" data-tooltip="{{localize 'SFO.browse'}}" aria-label="{{localize 'SFO.browse'}}"><i class="fa-solid fa-folder-open"></i></button></div>
+          <div class="sfo-cell-actions"><label><input type="checkbox" name="enabled" {{#if enabled}}checked{{/if}} {{#unless hasImage}}disabled{{/unless}}> {{localize "SFO.enabled"}}</label>
+            <button type="button" data-action="align" {{#unless hasImage}}disabled{{/unless}}><i class="fa-solid fa-up-down-left-right"></i> {{localize "SFO.align"}}</button>
+            <button type="button" data-action="clear" {{#unless hasImage}}disabled{{/unless}} data-tooltip="{{localize 'SFO.clear'}}" aria-label="{{localize 'SFO.clear'}}"><i class="fa-solid fa-trash"></i></button></div>
+          <small class="sfo-dimensions">{{geometry}}</small>
+        </td>{{/each}}
+      </tr>{{/each}}</tbody>
+    </table>
+  </div>{{/if}}
+  <footer class="hint sfo-footer">{{localize "SFO.levelsHint"}}</footer>
+</section>
