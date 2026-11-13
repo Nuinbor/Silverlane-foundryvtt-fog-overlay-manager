@@ -66,4 +66,4 @@
 - [x] Write a failing package round-trip test; implement deterministic ZIP packaging and artifact checks.
 - [x] Document Russian installation, UI usage, v14/Levels and shared-fog caveats and the real-Foundry acceptance checklist.
 - [x] Run all checks, review complete diff, resolve important findings with regression tests.
-- [ ] Commit, integrate safely into main, push origin main and verify remote SHA.
+- [x] Commit, integrate safely into main, push origin main and verify remote SHA.
