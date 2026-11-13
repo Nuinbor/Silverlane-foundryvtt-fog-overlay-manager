@@ -29,3 +29,5 @@
 - Root cause of missing CI archive: run 43513289719 passed check and 41 tests, then failed browser installation because ubuntu-latest resolved to Ubuntu 26.04, unsupported by Playwright 1.56.1.
 - Fix: pin both workflows to supported Ubuntu 24.04; keep browser verification required. The failing real Actions run is the regression reproduction; successful Actions execution is the integration acceptance.
 - Publish plan: fresh local verification, push updated workflows/docs, tag v0.1.0, let Release module upload module.zip/module.json/checksums, then fetch public URLs and validate downloaded ZIP/manifest before handoff.
+- Published: tag v0.1.0 points to 53dda1c; Release module run 43514699405 and Test and package run 43514694074 both succeeded on Ubuntu 24.04, including all 41 Node and 7 browser tests.
+- Public verification: latest manifest, versioned ZIP, latest ZIP and checksums all returned HTTP 200. Downloaded ZIP has 18 runtime/distribution files with a root manifest identical to the public manifest; referenced resources and SHA-256 checksums verified. ZIP SHA-256: a98c3f8a3af29a9336a012a42f0b1109c5710cce2ef3827ddcb967a08df767ec.
