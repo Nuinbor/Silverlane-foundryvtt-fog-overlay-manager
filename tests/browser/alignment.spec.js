@@ -31,3 +31,28 @@ test("drag distance is in scene coordinates at non-unit zoom", async ({ page }) 
   await page.mouse.move(320, 300); await page.mouse.down(); await page.mouse.move(420, 360); await page.mouse.up();
   expect(await page.evaluate(() => ({ ...preview.assignment }))).toMatchObject({ x: 150, y: 130, width: 200, height: 160 });
 });
+
+test("destroy remains safe if Foundry already destroyed the preview's parent group", async ({ page }) => {
+  const result = await page.evaluate(() => {
+    canvas.interface.destroy({ children: true });
+    try { preview.destroy(); preview.destroy(); return "safe"; } catch (error) { return error.message; }
+  });
+  expect(result).toBe("safe");
+});
+
+test("custom fog transform does not inherit background mirror or skew", async ({ page }) => {
+  const result = await page.evaluate(async () => {
+    const { FogOverlayController } = await import("/scripts/fog.js");
+    const { MODULE_ID } = await import("/scripts/model.js");
+    game.user = { id: "alice", isGM: false };
+    const local = { scene: { id: "s1", tokenVision: true, fog: { mode: 1 }, width: 500, height: 500,
+      flags: { [MODULE_ID]: { assignments: { ground: { alice: { src: "plan.webp", x: 10, y: 20, width: 200, height: 150, rotation: 0 } } } } } },
+      level: { id: "ground" }, sceneTextures: {}, loadTexturesOptions: { additionalSources: [] } };
+    const controller = new FogOverlayController({ getCanvas: () => local, getTexture: () => PIXI.Texture.WHITE });
+    controller.onCanvasInit(local); controller.onCanvasDraw(local);
+    const sprite = new PIXI.Sprite(PIXI.Texture.WHITE); sprite.scale.set(-2, -2); sprite.skew.set(0.2, 0.3);
+    controller.onVisibilityDraw({ visibilityOverlay: sprite, filter: { uniforms: {} } });
+    return { positiveX: sprite.scale.x > 0, positiveY: sprite.scale.y > 0, skewX: sprite.skew.x, skewY: sprite.skew.y };
+  });
+  expect(result).toEqual({ positiveX: true, positiveY: true, skewX: 0, skewY: 0 });
+});

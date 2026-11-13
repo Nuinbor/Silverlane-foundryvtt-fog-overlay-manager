@@ -50,6 +50,11 @@ export class FogOverlayController {
     const sprite = group.visibilityOverlay, uniforms = group.filter?.uniforms;
     if (!sprite || !uniforms) return;
     const a = this.#active.assignment;
+    // A same-sized native overlay may have inherited a mirrored/skewed
+    // background transform. Assigning width preserves its scale sign in PIXI.
+    sprite.scale.set(1, 1);
+    sprite.skew.set(0, 0);
+    sprite.pivot.set(0, 0);
     sprite.anchor.set(0.5);
     sprite.position.set(a.x + a.width / 2, a.y + a.height / 2);
     sprite.width = a.width;
@@ -59,6 +64,15 @@ export class FogOverlayController {
     // automatic texture tiling/tinting is disabled for this local assignment.
     uniforms.dimensions = [1, 1, 1, 1];
     uniforms.backgroundColor = [1, 1, 1];
+  }
+
+  onLightingRefresh() {
+    const canvas = this.getCanvas();
+    if (!this.#matches(canvas) || !this.#active.loaded) return;
+    // Core refreshLighting reapplies the scene background tint, including on
+    // initial perception. Reassert only for this client's active custom image.
+    const uniforms = canvas.visibility?.filter?.uniforms;
+    if (uniforms) uniforms.backgroundColor = [1, 1, 1];
   }
 
   /** Resolve after all coalesced redraws; callers may await this via the API. */

@@ -32,6 +32,7 @@ Hooks.once("init", () => {
 Hooks.on("canvasInit", canvas => fog.onCanvasInit(canvas));
 Hooks.on("canvasDraw", canvas => fog.onCanvasDraw(canvas));
 Hooks.on("drawCanvasVisibility", group => fog.onVisibilityDraw(group));
+Hooks.on("lightingRefresh", () => fog.onLightingRefresh());
 Hooks.on("canvasPan", () => { for (const editor of alignmentEditors) editor.preview?.refresh(); });
 Hooks.on("canvasTearDown", () => {
   for (const editor of [...alignmentEditors]) {
@@ -68,7 +69,7 @@ Hooks.on("getSceneContextOptions", (directory, entries) => {
     condition: () => !!game.user.isGM,
     callback: element => {
       const root = element?.[0] ?? element;
-      return openManager(root.dataset.entryId ?? root.dataset.documentId);
+      return openManager(root.dataset.sceneId ?? root.dataset.entryId ?? root.dataset.documentId);
     }
   });
 });

@@ -14,7 +14,7 @@ await import("../scripts/main.js");
 
 test("entry point registers native fog hooks and a restricted settings menu", () => {
   once.get("init")(); once.get("ready")();
-  for (const name of ["canvasInit", "canvasDraw", "drawCanvasVisibility", "canvasTearDown", "renderTileConfig", "updateTile", "updateScene"]) assert.ok(hooks.has(name), name);
+  for (const name of ["canvasInit", "canvasDraw", "drawCanvasVisibility", "lightingRefresh", "canvasTearDown", "renderTileConfig", "updateTile", "updateScene"]) assert.ok(hooks.has(name), name);
   assert.equal(menus[0][0], MODULE_ID); assert.equal(menus[0][2].restricted, true);
   assert.equal(typeof module.api.openManager, "function");
 });
@@ -33,4 +33,12 @@ test("native Scene context menu has a GM-only entry", () => {
   const entries = []; hooks.get("getSceneContextOptions")({}, entries);
   assert.equal(entries.length, 1); assert.equal(entries[0].condition(), true);
   game.user.isGM = false; assert.equal(entries[0].condition(), false);
+});
+
+test("SceneNavigation context uses the clicked sceneId, not the currently viewed scene", async () => {
+  game.user.isGM = true;
+  game.scenes.set("other", { id: "other" });
+  const entries = []; hooks.get("getSceneContextOptions")({}, entries);
+  const app = await entries[0].callback({ dataset: { sceneId: "other" } });
+  assert.equal(app.scene.id, "other");
 });

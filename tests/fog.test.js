@@ -51,7 +51,7 @@ test("native overlay is aligned once, with no tiling or scene-background tint", 
   const canvas = fixture();
   const controller = new FogOverlayController({ getCanvas: () => canvas, getTexture: () => ({ valid: true }) });
   controller.onCanvasInit(canvas); controller.onCanvasDraw(canvas);
-  const group = { visibilityOverlay: { anchor: { set(x) { this.x = this.y = x; } },
+  const group = { visibilityOverlay: { scale: { set() {} }, skew: { set() {} }, pivot: { set() {} }, anchor: { set(x) { this.x = this.y = x; } },
     position: { set(x, y) { this.x = x; this.y = y; } } }, filter: { uniforms: { dimensions: [2400, 2400, 2000, 2000] } } };
   controller.onVisibilityDraw(group);
   assert.equal(group.visibilityOverlay.anchor.x, 0.5);
@@ -69,6 +69,18 @@ test("a failed load or changed Level never transforms the native fallback image"
   controller.onVisibilityDraw(group); assert.equal(group.visibilityOverlay.width, 99);
   canvas.level = { id: "upper" }; controller.onVisibilityDraw(group);
   assert.equal(group.visibilityOverlay.width, 99);
+});
+
+test("lighting refresh preserves untinted custom images after native background colour updates", () => {
+  const canvas = fixture();
+  const controller = new FogOverlayController({ getCanvas: () => canvas, getTexture: () => ({ valid: true }) });
+  controller.onCanvasInit(canvas); controller.onCanvasDraw(canvas);
+  canvas.visibility = { filter: { uniforms: { backgroundColor: [0, 0, 0] } } };
+  controller.onLightingRefresh();
+  assert.deepEqual(canvas.visibility.filter.uniforms.backgroundColor, [1, 1, 1]);
+  canvas.visibility.filter.uniforms.backgroundColor = [0.2, 0.1, 0.3];
+  canvas.level = { id: "upper" }; controller.onLightingRefresh();
+  assert.deepEqual(canvas.visibility.filter.uniforms.backgroundColor, [0.2, 0.1, 0.3]);
 });
 
 test("redraw requests are coalesced and serialized across flag bursts", async () => {
