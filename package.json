@@ -1,0 +1,22 @@
+{
+  "name": "silverlane-fog-overlay-manager",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Per-player, per-Level fog images and tile visibility for Foundry VTT v14",
+  "license": "MIT",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check": "node tools/check.mjs",
+    "build": "node tools/build.mjs",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "fflate": "0.8.2",
+    "handlebars": "4.7.8",
+    "jsdom": "27.2.0",
+    "pixi.js": "7.4.3"
+  }
+}
