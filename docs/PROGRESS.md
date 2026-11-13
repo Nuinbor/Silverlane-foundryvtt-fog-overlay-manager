@@ -8,6 +8,8 @@
 - Pre-flight: Task 2 native redraw lifecycle destroys Task 3 temporary previews; editors must cancel previews on canvasTearDown; consistent.
 - Pre-flight: Task 4 packages Task 3 entry point, templates and locale paths listed by Task 1 manifest; consistent.
 - API evidence: official v14.370 docs and the publicly served v14 demo confirm CanvasVisibility is a group, visibilityOverlay is a Sprite, sceneTextures.fogOverlay is preloaded locally, and drawCanvasVisibility fires after filter creation.
-- Tasks 1–4: pending.
+- Task 1: complete — 14 Node tests pass, commit 23419a9.
+- Task 2: complete — 24 Node tests pass; local texture preloading/binding, native transform, serialized redraws, tile subclass and native form flags verified.
+- Tasks 3–4: pending.
 - Ruling: opacity controls only the local GM alignment preview, not the player fog image — player opacity was not requested and native texture alpha avoids extra render targets.
 - Task 1 RED: missing model/geometry modules. Initial implementation caught one incomplete test Level fixture (missing native id); corrected fixture, not production behavior.
