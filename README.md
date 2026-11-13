@@ -20,15 +20,30 @@
 
 ## Установка
 
+### По ссылке в Foundry (рекомендуется)
+
+В меню **Add-on Modules → Install Module** вставьте в поле **Manifest URL**:
+
+```text
+https://github.com/Nuinbor/Silverlane-foundryvtt-fog-overlay-manager/releases/latest/download/module.json
+```
+
+Нажмите **Install**, затем включите модуль в управлении модулями мира.
+Нужен опубликованный релиз с `module.json` и `module.zip`; простой push исходников
+не создаёт эти файлы автоматически. Следующие релизы публикуются workflow по тегу.
+Не используйте адрес GitHub с `/blob/main/module.json`: это HTML-страница,
+а не manifest для установщика.
+
 ### Из собранного архива
 
-1. Возьмите `module.zip` из артефакта последнего успешного запуска
+1. Скачайте [module.zip из последнего релиза](https://github.com/Nuinbor/Silverlane-foundryvtt-fog-overlay-manager/releases/latest/download/module.zip).
+   Также доступны промежуточные сборки в
    [Actions → Test and package](https://github.com/Nuinbor/Silverlane-foundryvtt-fog-overlay-manager/actions/workflows/ci.yml).
-   Архив артефакта GitHub сначала распакуйте: внутри будет установочный `module.zip`.
-   Для скачивания артефактов GitHub может требоваться вход в аккаунт.
+   Если скачиваете артефакт Actions, сначала распакуйте внешний ZIP: внутри будет
+   установочный `module.zip`. Для артефактов Actions может требоваться вход в GitHub.
 2. Остановите мир Foundry. Создайте каталог
    `Data/modules/silverlane-fog-overlay-manager/` в пользовательских данных Foundry.
-3. Распакуйте содержимое **внутреннего** `module.zip` в этот каталог. Файл
+3. Распакуйте содержимое установочного `module.zip` в этот каталог. Файл
    `module.json` должен лежать непосредственно в нём, не во вложенной папке.
 4. Перезапустите Foundry и включите **Silverlane Fog Overlay Manager** в управлении
    модулями мира. После включения перезагрузите окна мастера и игроков.
@@ -44,18 +59,6 @@ npm run build
 
 Архив появится в `dist/module.zip`. Для **использования** модуля Node/npm не нужны —
 они нужны только разработчику для сборки и тестов.
-
-### Установка по manifest после публикации релиза
-
-Простой push кода не создаёт релиз. После выпуска первого тега/релиза `v0.1.0`
-можно будет использовать адрес:
-
-```text
-https://github.com/Nuinbor/Silverlane-foundryvtt-fog-overlay-manager/releases/latest/download/module.json
-```
-
-До публикации релиза этот адрес не предназначен для установки. Используйте сборку
-из Actions либо локальный `dist/module.zip`.
 
 ## Использование
 

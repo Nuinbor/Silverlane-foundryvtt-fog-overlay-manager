@@ -22,3 +22,10 @@
 - Delivery: main fast-forwarded from the clean initial commit to 1bf1078; full checks, 41 Node tests, 7 browser tests and build passed again on main before the successful non-force push to origin/main. Release tags were not created. Final ledger completion is a documentation-only follow-up.
 - Ruling: opacity controls only the local GM alignment preview, not the player fog image — player opacity was not requested and native texture alpha avoids extra render targets.
 - Task 1 RED: missing model/geometry modules. Initial implementation caught one incomplete test Level fixture (missing native id); corrected fixture, not production behavior.
+
+## Follow-up: publish an installable release
+
+- Authority: user explicitly requested publishing the archive and enabling installation by URL; release/tag publication is now in scope.
+- Root cause of missing CI archive: run 43513289719 passed check and 41 tests, then failed browser installation because ubuntu-latest resolved to Ubuntu 26.04, unsupported by Playwright 1.56.1.
+- Fix: pin both workflows to supported Ubuntu 24.04; keep browser verification required. The failing real Actions run is the regression reproduction; successful Actions execution is the integration acceptance.
+- Publish plan: fresh local verification, push updated workflows/docs, tag v0.1.0, let Release module upload module.zip/module.json/checksums, then fetch public URLs and validate downloaded ZIP/manifest before handoff.
