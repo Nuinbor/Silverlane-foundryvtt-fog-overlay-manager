@@ -1,0 +1,30 @@
+name: Test and package
+on:
+  push:
+    branches: [main, 'feat/**']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: silverlane-fog-overlay-manager
+          path: |
+            dist/module.zip
+            dist/module.json
+            dist/SHA256SUMS.txt
+          if-no-files-found: error

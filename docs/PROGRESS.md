@@ -11,6 +11,13 @@
 - Task 1: complete — 14 Node tests pass, commit 23419a9.
 - Task 2: complete — 24 Node tests pass; local texture preloading/binding, native transform, serialized redraws, tile subclass and native form flags verified.
 - Task 3: complete — 37 Node/DOM tests and 5 Chromium tests pass. Browser tests use actual PIXI 7.4.3 for movement, independent resizing, zoom coordinates, Escape and resource cleanup; no licensed Foundry session is claimed.
-- Task 4: in progress — packaging, documentation and independent review.
+- Task 4: verification complete; integration/push pending.
+- Independent review: two important native-rendering issues and one minor context-menu issue confirmed and fixed with regressions: lighting refresh tint, inherited background mirroring/skew, and navigation sceneId selection. No critical findings.
+- Packaging: deterministic, allowlisted ZIP with root manifest and checksums; CI artifacts and tag-based releases; Russian installation/usage and real-Foundry acceptance checklist documented.
+- Dependencies: development-only audit is clean after updating fflate and Handlebars. Nothing from node_modules or Foundry source is packaged.
+- Limitation: no licensed local Foundry v14 instance; native multi-client rendering/persistence and migrated-scene acceptance remain explicitly unverified. Automated tests do not substitute for that acceptance.
+- Integration ruling: user already requested push and delegated remaining decisions; safely fast-forward main after fetching and verification, then push without force. No release/tag publication is authorized or performed.
+- Final pre-integration verification: `npm run check`, 41 Node/DOM/package tests, 7 Chromium/PIXI tests, `npm run build`, `npm audit` (0 vulnerabilities), and `git diff --check` passed.
+- Re-review: all three original findings resolved; reviewer passed 12 targeted regressions and additional actual-PIXI mirrored-matrix checks. No remaining issues within that review scope.
 - Ruling: opacity controls only the local GM alignment preview, not the player fog image — player opacity was not requested and native texture alpha avoids extra render targets.
 - Task 1 RED: missing model/geometry modules. Initial implementation caught one incomplete test Level fixture (missing native id); corrected fixture, not production behavior.

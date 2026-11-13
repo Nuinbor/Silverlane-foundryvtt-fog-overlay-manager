@@ -32,10 +32,10 @@
 
 **Interfaces:** `MODULE_ID`; `getLevels(scene)`; `readAssignment(scene, levelId, userId)`; `normalizeAssignment(value, rect)`; `saveAssignment(scene, levelId, userId, value)`; `canViewTile(document, user)`; `sceneRect(scene)`; `resizeRect(start, handle, delta, options)`.
 
-- [ ] Write failing tests for floor ordering, missing assignments, invalid dimensions, safe paths, sparse updates, GM authorization, tile restrictions, padded scene coordinates and rotated resize geometry.
-- [ ] Run `npm test`; confirm absent behavior fails.
-- [ ] Implement the pure helpers and manifest; rerun the complete suite.
-- [ ] Commit the test-backed model and geometry.
+- [x] Write failing tests for floor ordering, missing assignments, invalid dimensions, safe paths, sparse updates, GM authorization, tile restrictions, padded scene coordinates and rotated resize geometry.
+- [x] Run `npm test`; confirm absent behavior fails.
+- [x] Implement the pure helpers and manifest; rerun the complete suite.
+- [x] Commit the test-backed model and geometry.
 
 ### Task 2: Native fog and tile integration
 
@@ -43,9 +43,9 @@
 
 **Interfaces:** `FogOverlayController` with `onCanvasInit(canvas)`, `onVisibilityDraw(group)`, `requestRedraw()`; `installTileVisibility()`; `injectTileVisibility(app, html)`.
 
-- [ ] Write failing boundary tests for selecting only the local user's Level assignment, unity dimensions (no tiling), fallbacks, native visibility composition and form persistence.
-- [ ] Run targeted tests; implement the adapters; run the suite.
-- [ ] Commit native integrations.
+- [x] Write failing boundary tests for selecting only the local user's Level assignment, unity dimensions (no tiling), fallbacks, native visibility composition and form persistence.
+- [x] Run targeted tests; implement the adapters; run the suite.
+- [x] Commit native integrations.
 
 ### Task 3: Manager and interactive alignment
 
@@ -53,9 +53,9 @@
 
 **Interfaces:** `FogOverlayManager({scene})`; `AlignmentEditor({scene, levelId, userId, assignment, onSave})`; `CanvasAlignmentPreview` owns its PIXI container/listeners and async generation guard.
 
-- [ ] Write failing DOM and browser tests for matrix layout, picking paths, drag/resize, cancel, delayed loads and save permissions.
-- [ ] Implement ApplicationV2 manager, alignment editor/preview and entry-point registration.
-- [ ] Run Node and browser suites and commit.
+- [x] Write failing DOM and browser tests for matrix layout, picking paths, drag/resize, cancel, delayed loads and save permissions.
+- [x] Implement ApplicationV2 manager, alignment editor/preview and entry-point registration.
+- [x] Run Node and browser suites and commit.
 
 ### Task 4: Packaging, documentation and final review
 
@@ -63,7 +63,7 @@
 
 **Interfaces:** `npm run check`, `npm test`, `npm run test:browser`, `npm run build`.
 
-- [ ] Write a failing package round-trip test; implement deterministic ZIP packaging and artifact checks.
-- [ ] Document Russian installation, UI usage, v14/Levels and shared-fog caveats and the real-Foundry acceptance checklist.
-- [ ] Run all checks, review complete diff, resolve important findings with regression tests.
+- [x] Write a failing package round-trip test; implement deterministic ZIP packaging and artifact checks.
+- [x] Document Russian installation, UI usage, v14/Levels and shared-fog caveats and the real-Foundry acceptance checklist.
+- [x] Run all checks, review complete diff, resolve important findings with regression tests.
 - [ ] Commit, integrate safely into main, push origin main and verify remote SHA.

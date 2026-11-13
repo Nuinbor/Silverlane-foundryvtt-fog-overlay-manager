@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",
-    "fflate": "0.8.2",
-    "handlebars": "4.7.8",
+    "fflate": "0.8.3",
+    "handlebars": "4.7.10",
     "jsdom": "27.2.0",
     "pixi.js": "7.4.3"
   }
